@@ -94,8 +94,8 @@ pub fn register_components(world: &mut World) {
     world.register::<emit::EmitOnce>();
     world.register::<emit::AtomNumberToEmit>();
     world.register::<surface::SurfaceSource>();
-    world.register::<gaussian::GaussianVelocityDistributionSource>();
-    world.register::<gaussian::GaussianVelocityDistributionSourceDefinition>();
+    world.register::<gaussian::GaussianDistributionSource>();
+    world.register::<gaussian::GaussianDistributionSourceDefinition>();
 }
 
 /// A simple probability distribution which uses weighted indices to retrieve values.
