@@ -133,6 +133,7 @@ impl<'a> System<'a> for PrecalculateForGaussianSourceSystem {
             println!("Precalculated velocity, position and mass distributions for a gaussian source.");
         }
 
+
         for (entity, precalculated) in precalculated_data {
             calculated
                 .insert(entity, precalculated)
@@ -156,18 +157,18 @@ impl<'a> System<'a> for GaussianCreateAtomsSystem {
 
     fn run(
         &mut self,
-        (entities, sources, atom_infos, numbers_to_emits, positions, masses, updater): Self::SystemData,
+        (entities, sources, atom, numbers_to_emits, positions, masses, updater): Self::SystemData,
     ) {
         let mut rng = rand::thread_rng();
         for (source, atom, number_to_emit, source_position, mass) in (
             &sources,
-            &atom_infos,
+            &atom,
             &numbers_to_emits,
             &positions,
             &masses,
         )
             .join()
-        {
+        {   
             for _i in 0..number_to_emit.number {
                 let new_atom = entities.create();
                 let new_vel = source.get_random_velocity(&mut rng);
