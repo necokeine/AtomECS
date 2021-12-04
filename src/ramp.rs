@@ -54,16 +54,16 @@ where
         let (t1, val_a) = &self.keyframes[self.prev];
         let (t2, val_b) = &self.keyframes[self.prev + 1];
         let amount = (current_time - t1) / (t2 - t1);
-        return val_a.lerp(&val_b, amount);
+        val_a.lerp(val_b, amount)
     }
 
     fn at_end(&self) -> bool {
-        return self.prev == self.keyframes.len() - 1;
+        self.prev == self.keyframes.len() - 1
     }
 
     pub fn new(keyframes: Vec<(f64, T)>) -> Self {
         Ramp {
-            keyframes: keyframes,
+            keyframes,
             prev: 0,
         }
     }

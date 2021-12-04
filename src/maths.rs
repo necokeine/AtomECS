@@ -21,7 +21,7 @@ pub fn get_relative_coordinates_line_point(
 	frame: &crate::laser::frame::Frame,
 ) -> (f64, f64, f64) {
 	let rela_cood = pos - line_point;
-	let z = rela_cood.dot(&dir) / dir.norm();
+	let z = rela_cood.dot(dir) / dir.norm();
 	let r_vec = rela_cood - z * dir;
 	let x = r_vec.dot(&frame.x_vector);
 	let y = r_vec.dot(&frame.y_vector);
@@ -44,7 +44,7 @@ pub fn get_minimum_distance_line_point(
 ) -> (f64, f64) {
 	let rela_cood = pos - line_point;
 	let distance = (dir.cross(&rela_cood) / dir.norm()).norm();
-	let z = rela_cood.dot(&dir) / dir.norm();
+	let z = rela_cood.dot(dir) / dir.norm();
 	(distance, z)
 }
 
@@ -65,6 +65,6 @@ mod tests {
 		let centre = Vector3::new(0., 1., 1.);
 		let dir = Vector3::new(1., 2., 2.);
 		let (distance, _) = get_minimum_distance_line_point(&pos, &centre, &dir);
-		assert!(distance > 0.942, distance < 0.943);
+		assert!(distance > 0.942, "{}", distance < 0.943);
 	}
 }

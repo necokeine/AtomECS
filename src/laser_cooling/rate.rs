@@ -167,7 +167,7 @@ pub mod tests {
             .create_entity()
             .with(CoolingLight {
                 polarization: 1,
-                wavelength: wavelength,
+                wavelength,
             })
             .with(LaserIndex {
                 index: 0,
@@ -198,12 +198,12 @@ pub mod tests {
             })
             .with(LaserIntensitySamplers {
                 contents: [crate::laser::intensity::LaserIntensitySampler {
-                    intensity: intensity,
+                    intensity,
                 }; crate::laser::BEAM_LIMIT],
             })
             .with(AtomicTransition::strontium())
             .with(MagneticFieldSampler {
-                field: field,
+                field,
                 magnitude: 1.0,
                 gradient: Vector3::new(0.0, 0.0, 0.0),
                 jacobian: Matrix3::zeros(),

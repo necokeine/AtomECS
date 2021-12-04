@@ -50,7 +50,7 @@ impl<'a> System<'a> for CalculateDopplerShiftSystem {
         type CachedLaser = (CoolingLight, LaserIndex, GaussianBeam);
         let laser_cache: Vec<CachedLaser> = (&cooling, &indices, &gaussian)
             .join()
-            .map(|(cooling, index, gaussian)| (cooling.clone(), index.clone(), gaussian.clone()))
+            .map(|(cooling, index, gaussian)| (*cooling, *index, *gaussian))
             .collect();
 
         // Perform the iteration over atoms, `LASER_CACHE_SIZE` at a time.
@@ -128,7 +128,7 @@ pub mod tests {
             .create_entity()
             .with(CoolingLight {
                 polarization: 1,
-                wavelength: wavelength,
+                wavelength,
             })
             .with(LaserIndex {
                 index: 0,

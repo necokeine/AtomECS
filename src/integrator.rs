@@ -49,10 +49,10 @@ impl<'a> System<'a> for EulerIntegrationSystem {
 	fn run(&mut self, (mut pos, mut vel, t, mut step, force, mass): Self::SystemData) {
 		use rayon::prelude::*;
 
-		step.n = step.n + 1;
+		step.n += 1;
 		(&mut vel, &mut pos, &force, &mass).par_join().for_each(
-			|(mut vel, mut pos, force, mass)| {
-				euler_update(&mut vel, &mut pos, &force, &mass, t.delta);
+			|(vel, pos, force, mass)| {
+				euler_update(vel, pos, force, mass, t.delta);
 			},
 		);
 	}
@@ -81,7 +81,7 @@ impl<'a> System<'a> for VelocityVerletIntegratePositionSystem {
 	fn run(&mut self, (mut pos, vel, t, mut step, force, mut oldforce, mass): Self::SystemData) {
 		use rayon::prelude::*;
 
-		step.n = step.n + 1;
+		step.n += 1;
 		let dt = t.delta;
 
 		(&mut pos, &vel, &mut oldforce, &force, &mass)
@@ -118,9 +118,8 @@ impl<'a> System<'a> for VelocityVerletIntegrateVelocitySystem {
 		let dt = t.delta;
 
 		(&mut vel, &force, &oldforce, &mass).par_join().for_each(
-			|(mut vel, force, oldforce, mass)| {
-				vel.vel = vel.vel
-					+ (force.force + oldforce.0.force) / (constant::AMU * mass.value) / 2.0 * dt;
+			|(vel, force, oldforce, mass)| {
+				vel.vel += (force.force + oldforce.0.force) / (constant::AMU * mass.value) / 2.0 * dt;
 			},
 		);
 	}
@@ -155,8 +154,8 @@ impl Default for OldForce {
 
 /// Performs the euler method to update [Velocity](struct.Velocity.html) and [Position](struct.Position.html) given an applied [Force](struct.Force.html).
 fn euler_update(vel: &mut Velocity, pos: &mut Position, force: &Force, mass: &Mass, dt: f64) {
-	pos.pos = pos.pos + vel.vel * dt;
-	vel.vel = vel.vel + force.force * dt / (constant::AMU * mass.value);
+	pos.pos += vel.vel * dt;
+	vel.vel += force.force * dt / (constant::AMU * mass.value);
 }
 
 pub mod tests {
@@ -211,7 +210,7 @@ pub mod tests {
 			.with(Velocity {
 				vel: Vector3::new(0.0, 0.0, 0.0),
 			})
-			.with(Force { force: force })
+			.with(Force { force })
 			.with(Mass {
 				value: mass / constant::AMU,
 			})
@@ -307,9 +306,9 @@ pub mod tests {
 			.with(Velocity {
 				vel: Vector3::new(0.0, 0.0, 0.0),
 			})
-			.with(Force { force: force })
+			.with(Force { force })
 			.with(OldForce {
-				0: Force { force: force },
+				0: Force { force },
 			})
 			.with(Mass {
 				value: mass / constant::AMU,

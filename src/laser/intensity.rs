@@ -93,8 +93,8 @@ impl<'a> System<'a> for SampleLaserIntensitySystem {
             .join()
             .map(|(laser_entity, index, gaussian)| {
                 (
-                    index.clone(),
-                    gaussian.clone(),
+                    *index,
+                    *gaussian,
                     masks.get(laser_entity).cloned(),
                     frames.get(laser_entity).cloned(),
                 )
@@ -116,7 +116,7 @@ impl<'a> System<'a> for SampleLaserIntensitySystem {
                         let (index, gaussian, mask, frame) = laser_array[i];
                         samplers.contents[index.index].intensity = get_gaussian_beam_intensity(
                             &gaussian,
-                            &pos,
+                            pos,
                             mask.as_ref(),
                             frame.as_ref(),
                         );

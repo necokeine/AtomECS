@@ -162,7 +162,7 @@ impl<'a> System<'a> for AttachRegionTestsToNewlyCreatedSystem {
 pub fn add_systems_to_dispatch(
     builder: &mut DispatcherBuilder<'static, 'static>,
     deps: &[&str],
-) -> () {
+) {
     builder.add(ClearRegionTestSystem, "clear_region_test", deps);
     builder.add(
         RegionTestSystem::<Sphere> {
@@ -273,7 +273,7 @@ pub mod tests {
                 .with(RegionTest {
                     result: Result::Untested,
                 })
-                .with(Position { pos: pos })
+                .with(Position { pos })
                 .build();
 
             let delta = pos - sphere_pos;
@@ -313,7 +313,7 @@ pub mod tests {
             .create_entity()
             .with(Position { pos: cuboid_pos })
             .with(Cuboid {
-                half_width: half_width,
+                half_width,
             })
             .with(SimulationVolume {
                 volume_type: VolumeType::Inclusive,
@@ -333,7 +333,7 @@ pub mod tests {
                 .with(RegionTest {
                     result: Result::Untested,
                 })
-                .with(Position { pos: pos })
+                .with(Position { pos })
                 .build();
 
             let delta = pos - cuboid_pos;

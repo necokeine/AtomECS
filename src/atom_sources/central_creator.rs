@@ -233,7 +233,7 @@ impl<'a> System<'a> for CentralCreatorCreateAtomsSystem {
                 );
                 updater.insert(new_atom, Force::new());
                 updater.insert(new_atom, mass);
-                updater.insert(new_atom, atom.clone());
+                updater.insert(new_atom, *atom);
                 updater.insert(new_atom, Atom);
                 updater.insert(
                     new_atom,
@@ -334,7 +334,7 @@ pub mod tests {
                         } else {
                             check.everything_allright = false;
                         }
-                        check.number = check.number + 1;
+                        check.number += 1;
                     }
                 }
             }
@@ -349,7 +349,7 @@ pub mod tests {
                 .get(checker1)
                 .expect("entity not found")
                 .everything_allright,
-            true
+            "{}", true
         );
 
         assert_eq!(

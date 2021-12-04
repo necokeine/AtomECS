@@ -35,7 +35,7 @@ impl<'a> System<'a> for IndexLasersSystem {
         let mut iter = 0;
         let mut need_to_assign_indices = false;
         for index in (&indices).join() {
-            if index.initiated == false {
+            if !index.initiated {
                 need_to_assign_indices = true;
             }
         }
@@ -43,7 +43,7 @@ impl<'a> System<'a> for IndexLasersSystem {
             for mut index in (&mut indices).join() {
                 index.index = iter;
                 index.initiated = true;
-                iter = iter + 1;
+                iter += 1;
             }
         }
     }

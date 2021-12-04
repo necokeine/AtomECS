@@ -55,7 +55,7 @@ pub mod tests {
         world
             .create_entity()
             .with(CoolingLight::for_species(
-                transition.clone(),
+                transition,
                 detuning_megahz,
                 1,
             ))
@@ -82,7 +82,7 @@ pub mod tests {
             .with(Velocity {
                 vel: Vector3::new(0.0, 0.0, 0.0),
             })
-            .with(transition.clone())
+            .with(transition)
             .with(Atom)
             .with(NewlyCreated)
             .with(Force::new())
