@@ -34,7 +34,7 @@ impl MassDistribution {
     /// The created distribution will be normalised.
     pub fn new(distribution: Vec<MassRatio>) -> Self {
         let mut mass_dist = MassDistribution {
-            distribution: distribution,
+            distribution,
             normalised: false,
         };
         mass_dist.normalise();

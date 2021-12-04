@@ -96,7 +96,7 @@ impl CentralCreator {
             position_density_distribution: PositionDensityDistribution::UniformCuboidic {
                 size: [size_of_cube, size_of_cube, size_of_cube],
             },
-            spatial_speed_distribution: SpatialSpeedDistribution::Uniform { speed: speed },
+            spatial_speed_distribution: SpatialSpeedDistribution::Uniform { speed },
             speed_density_distribution: SpeedDensityDistribution::UniformCentral {
                 width: 0.5 * speed,
             },
@@ -111,7 +111,7 @@ impl CentralCreator {
 
         let pos_vector = match self.position_density_distribution {
             PositionDensityDistribution::UniformCuboidic { size } => {
-                let size = size.clone();
+                let size = size;
                 let pos1 = rng.gen_range(-0.5 * size[0]..0.5 * size[0]);
                 let pos2 = rng.gen_range(-0.5 * size[1]..0.5 * size[1]);
                 let pos3 = rng.gen_range(-0.5 * size[2]..0.5 * size[2]);
@@ -228,7 +228,7 @@ impl<'a> System<'a> for CentralCreatorCreateAtomsSystem {
                 updater.insert(
                     new_atom,
                     Velocity {
-                        vel: start_velocity.clone(),
+                        vel: start_velocity,
                     },
                 );
                 updater.insert(new_atom, Force::new());

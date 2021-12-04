@@ -71,10 +71,10 @@ impl GaussianBeam {
 		let std = e_radius / 2.0_f64.powf(0.5);
 		let power = 2.0 * std::f64::consts::PI * std.powi(2) * peak_intensity;
 		GaussianBeam {
-			intersection: intersection,
-			direction: direction,
-			power: power,
-			e_radius: e_radius,
+			intersection,
+			direction,
+			power,
+			e_radius,
 			rayleigh_range: f64::INFINITY,
 			ellipticity: 0.0,
 		}
