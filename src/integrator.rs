@@ -223,7 +223,7 @@ pub mod tests {
 		// run simulation loop 1_000 times.
 		let n_steps = 1_000;
 		for _i in 0..n_steps {
-			dispatcher.dispatch(&mut world);
+			dispatcher.dispatch(&world);
 			world.maintain();
 		}
 
@@ -266,13 +266,12 @@ pub mod tests {
 
 		let test_entity = test_world.create_entity().with(NewlyCreated {}).build();
 
-		dispatcher.dispatch(&mut test_world);
+		dispatcher.dispatch(&test_world);
 		test_world.maintain();
 
 		let old_forces = test_world.read_storage::<OldForce>();
-		assert_eq!(
+		assert!(
 			old_forces.contains(test_entity),
-			true,
 			"OldForce component not added to test entity."
 		);
 	}
@@ -322,7 +321,7 @@ pub mod tests {
 		// run simulation loop 1_000 times.
 		let n_steps = 1_000;
 		for _i in 0..n_steps {
-			dispatcher.dispatch(&mut world);
+			dispatcher.dispatch(&world);
 			world.maintain();
 		}
 

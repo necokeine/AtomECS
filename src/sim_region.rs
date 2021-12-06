@@ -80,10 +80,8 @@ where
                             VolumeType::Inclusive => {
                                 if contained {
                                     result.result = Result::Accept;
-                                } else {
-                                    if let Result::Untested = result.result {
-                                        result.result = Result::Failed
-                                    }
+                                } else if let Result::Untested = result.result {
+                                    result.result = Result::Failed
                                 }
                             }
                             VolumeType::Exclusive => {

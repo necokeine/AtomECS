@@ -134,7 +134,7 @@ pub mod tests {
     fn test_ramp() {
         use assert_approx_eq::assert_approx_eq;
 
-        let mut frames = vec![
+        let frames = vec![
             (0.0, ALerpComp { value: 0.0 }),
             (1.0, ALerpComp { value: 1.0 }),
             (2.0, ALerpComp { value: 0.0 })];
@@ -186,7 +186,7 @@ pub mod tests {
             .build();
         dispatcher.setup(&mut test_world);
 
-        let mut frames = vec![
+        let frames = vec![
             (0.0, ALerpComp { value: 0.0 }),
             (1.0, ALerpComp { value: 1.0 })];
         let ramp = Ramp {

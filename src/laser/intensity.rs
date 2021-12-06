@@ -112,8 +112,7 @@ impl<'a> System<'a> for SampleLaserIntensitySystem {
             (&mut intensity_samplers, &position)
                 .par_join()
                 .for_each(|(samplers, pos)| {
-                    for i in 0..number_in_iteration {
-                        let (index, gaussian, mask, frame) = laser_array[i];
+                    for (index, gaussian, mask, frame) in laser_array.iter().take(number_in_iteration) {
                         samplers.contents[index.index].intensity = get_gaussian_beam_intensity(
                             &gaussian,
                             pos,

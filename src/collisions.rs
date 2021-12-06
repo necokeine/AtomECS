@@ -370,8 +370,10 @@ pub mod tests {
         let vel = Vector3::new(1.0, 0.0, 0.0);
         const MACRO_ATOM_NUMBER: usize = 100;
         let mut velocities: Vec<Velocity> = vec![Velocity { vel }; MACRO_ATOM_NUMBER];
-        let mut collision_box = CollisionBox::default();
-        collision_box.velocities = velocities.iter_mut().collect();
+        let mut collision_box = CollisionBox {
+            velocities: velocities.iter_mut().collect(),
+            ..Default::default()
+        };
 
         let params = CollisionParameters {
             macroparticle: 10.0,
@@ -460,7 +462,7 @@ pub mod tests {
         });
 
         for _i in 0..10 {
-            dispatcher.dispatch(&mut test_world);
+            dispatcher.dispatch(&test_world);
             test_world.maintain();
         }
 
