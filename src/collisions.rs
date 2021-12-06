@@ -235,7 +235,7 @@ impl<'a> System<'a> for ApplyCollisionsSystem {
     }
 }
 
-fn do_collision<'a>(mut v1: Vector3<f64>, mut v2: Vector3<f64>) -> (Vector3<f64>, Vector3<f64>) {
+fn do_collision(mut v1: Vector3<f64>, mut v2: Vector3<f64>) -> (Vector3<f64>, Vector3<f64>) {
     let mut rng = rand::thread_rng();
 
     // Randomly modify velocities in CoM frame, conserving energy & momentum
