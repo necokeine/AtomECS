@@ -9,7 +9,7 @@ use specs::prelude::*;
 /// Default `LaserIndex`s are created with `initiated: false`.
 /// Once the index is set, initiated is set to true.
 /// This is used to detect if all lasers in the simulation are correctly indexed, in case new lasers are added.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 pub struct LaserIndex {
     pub index: usize,
     pub initiated: bool,
@@ -17,15 +17,6 @@ pub struct LaserIndex {
 impl Component for LaserIndex {
     type Storage = HashMapStorage<Self>;
 }
-impl Default for LaserIndex {
-    fn default() -> Self {
-        LaserIndex {
-            index: 0,
-            initiated: false,
-        }
-    }
-}
-
 /// Assigns unique indices to laser entities.
 pub struct IndexLasersSystem;
 impl<'a> System<'a> for IndexLasersSystem {

@@ -259,12 +259,11 @@ pub mod tests {
         system.run_now(&test_world);
         test_world.maintain();
 
-        assert_eq!(
-            test_world
+        assert!(
+            !test_world
                 .read_storage::<LaserIndex>()
                 .get(test_entity)
-                .is_none(),
-            false
+                .is_none()
         );
     }
 

@@ -132,11 +132,11 @@ pub mod tests {
             system.run_now(&test_world);
             let emits = test_world.read_storage::<AtomNumberToEmit>();
             let number = emits.get(emitter).expect("Could not get entity").number;
-            assert_eq!(number == 3 || number == 4, true);
+            assert!(number == 3 || number == 4);
             total += number;
         }
-        assert_eq!(total > (n as f64 * 0.9 * rate) as i32, true);
-        assert_eq!(total < (n as f64 * 1.1 * rate) as i32, true);
+        assert!(total > (n as f64 * 0.9 * rate) as i32);
+        assert!(total < (n as f64 * 1.1 * rate) as i32);
     }
 
     #[test]

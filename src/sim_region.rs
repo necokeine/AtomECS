@@ -81,9 +81,8 @@ where
                                 if contained {
                                     result.result = Result::Accept;
                                 } else {
-                                    match result.result {
-                                        Result::Untested => result.result = Result::Failed,
-                                        _ => (),
+                                    if let Result::Untested = result.result {
+                                        result.result = Result::Failed
                                     }
                                 }
                             }
@@ -289,8 +288,8 @@ pub mod tests {
         for (entity, result) in tests {
             let test_result = test_results.get(entity).expect("Could not find entity");
             match test_result.result {
-                Result::Failed => assert_eq!(result, false, "Incorrect Failed"),
-                Result::Accept => assert_eq!(result, true, "Incorrect Accept"),
+                Result::Failed => assert!(!result, "Incorrect Failed"),
+                Result::Accept => assert!(result, "Incorrect Accept"),
                 _ => panic!("Result must be either Failed or Accept"),
             }
         }
@@ -354,8 +353,8 @@ pub mod tests {
         for (entity, result) in tests {
             let test_result = test_results.get(entity).expect("Could not find entity");
             match test_result.result {
-                Result::Failed => assert_eq!(result, false, "Incorrect Failed"),
-                Result::Accept => assert_eq!(result, true, "Incorrect Accept"),
+                Result::Failed => assert!(!result, "Incorrect Failed"),
+                Result::Accept => assert!(result, "Incorrect Accept"),
                 _ => panic!("Result must be either Failed or Accept"),
             }
         }
@@ -373,10 +372,10 @@ pub mod tests {
 
         let sampler_entity = test_world.create_entity().with(NewlyCreated).build();
 
-        dispatcher.dispatch(&mut test_world);
+        dispatcher.dispatch(&test_world);
         test_world.maintain();
 
         let samplers = test_world.read_storage::<RegionTest>();
-        assert_eq!(samplers.contains(sampler_entity), true);
+        assert!(samplers.contains(sampler_entity));
     }
 }

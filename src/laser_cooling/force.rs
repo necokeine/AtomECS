@@ -73,8 +73,7 @@ impl<'a> System<'a> for CalculateAbsorptionForcesSystem {
             (&actual_scattered_vector, &mut forces, !&_dark)
                 .par_join()
                 .for_each(|(scattered, force, _)| {
-                    for i in 0..number_in_iteration {
-                        let (cooling, index, gaussian) = laser_array[i];
+                    for (cooling, index, gaussian) in laser_array.iter().take(number_in_iteration) {
                         let new_force = scattered.contents[index.index].scattered * HBAR
                             / timestep.delta
                             * gaussian.direction.normalize()

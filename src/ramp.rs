@@ -134,10 +134,10 @@ pub mod tests {
     fn test_ramp() {
         use assert_approx_eq::assert_approx_eq;
 
-        let mut frames = Vec::new();
-        frames.push((0.0, ALerpComp { value: 0.0 }));
-        frames.push((1.0, ALerpComp { value: 1.0 }));
-        frames.push((2.0, ALerpComp { value: 0.0 }));
+        let mut frames = vec![
+            (0.0, ALerpComp { value: 0.0 }),
+            (1.0, ALerpComp { value: 1.0 }),
+            (2.0, ALerpComp { value: 0.0 })];
         let mut ramp = Ramp {
             prev: 0,
             keyframes: frames,
@@ -186,9 +186,9 @@ pub mod tests {
             .build();
         dispatcher.setup(&mut test_world);
 
-        let mut frames = Vec::new();
-        frames.push((0.0, ALerpComp { value: 0.0 }));
-        frames.push((1.0, ALerpComp { value: 1.0 }));
+        let mut frames = vec![
+            (0.0, ALerpComp { value: 0.0 }),
+            (1.0, ALerpComp { value: 1.0 })];
         let ramp = Ramp {
             prev: 0,
             keyframes: frames,
@@ -206,7 +206,7 @@ pub mod tests {
 
         // Perform dispatcher loop to ramp components.
         for i in 1..10 {
-            dispatcher.dispatch(&mut test_world);
+            dispatcher.dispatch(&test_world);
 
             let comps: ReadStorage<ALerpComp> = test_world.system_data();
             assert_approx_eq!(

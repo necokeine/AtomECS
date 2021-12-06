@@ -64,8 +64,7 @@ impl<'a> System<'a> for CalculateDopplerShiftSystem {
             (&mut samplers, &velocities)
                 .par_join()
                 .for_each(|(sampler, vel)| {
-                    for i in 0..number_in_iteration {
-                        let (cooling, index, gaussian) = laser_array[i];
+                    for (cooling, index, gaussian) in laser_array.iter().take(number_in_iteration) {
                         sampler.contents[index.index].doppler_shift = vel
                             .vel
                             .dot(&(gaussian.direction.normalize() * cooling.wavenumber()));

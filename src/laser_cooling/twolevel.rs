@@ -128,8 +128,8 @@ pub mod tests {
 
         let mut sum_rates = 0.0;
 
-        for i in 0..crate::laser::BEAM_LIMIT {
-            if active_lasers[i].filled {
+        for active_laser in active_lasers.iter().take(crate::laser::BEAM_LIMIT) {
+            if active_laser.filled {
                 sum_rates += 1_000_000.0;
             }
         }

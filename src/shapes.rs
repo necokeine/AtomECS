@@ -80,7 +80,7 @@ impl Surface for Cylinder {
             };
             let angle = rng.gen_range(0.0..2.0 * std::f64::consts::PI);
             let f: f64 = rng.gen_range(0.0..1.0);
-            let radius = &self.radius * f.sqrt();
+            let radius = self.radius * f.sqrt();
             let normal = sign * self.direction;
             let point = surface_position
                 + self.perp_x * radius * angle.cos()

@@ -102,7 +102,7 @@ impl<'a> System<'a> for CalculateRateCoefficientsSystem {
                 .par_join()
                 .for_each(|(detunings, intensities, atominfo, bfield, rates)| {
                     let beam_direction_vector = gaussian.direction.normalize();
-                    let costheta = if &bfield.field.norm_squared() < &(10.0 * f64::EPSILON) {
+                    let costheta = if bfield.field.norm_squared() < (10.0 * f64::EPSILON) {
                         0.0
                     } else {
                         beam_direction_vector

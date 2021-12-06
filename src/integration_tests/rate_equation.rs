@@ -97,7 +97,7 @@ pub mod tests {
             .build();
 
         // The first dispatch is to add required components to new atoms.
-        dispatcher.dispatch(&mut world);
+        dispatcher.dispatch(&world);
         world.maintain();
 
         // Reset position and velocity to zero.
@@ -121,7 +121,7 @@ pub mod tests {
             .is_ok());
 
         // Second dispatch to calculate values over completed atoms.
-        dispatcher.dispatch(&mut world);
+        dispatcher.dispatch(&world);
 
         let expected_scattered =
             analytic_scattering_rate(intensity, i_sat, delta, transition.gamma());

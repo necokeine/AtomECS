@@ -110,8 +110,7 @@ impl<'a> System<'a> for CalculateLaserDetuningSystem {
                 .par_join()
                 .for_each(
                     |(detuning_sampler, doppler_samplers, zeeman_sampler, atom_info)| {
-                        for i in 0..number_in_iteration {
-                            let (index, cooling) = laser_array[i];
+                        for (index, cooling) in laser_array.iter().take(number_in_iteration) {
                             let without_zeeman = 2.0
                                 * constant::PI
                                 * (constant::C / cooling.wavelength - atom_info.frequency)
